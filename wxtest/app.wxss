@@ -1,0 +1,12 @@
+/**app.wxss**/
+
+page{
+  height: 100%;
+}
+textarea{
+  width: 100%;
+  padding: 7px;
+  box-sizing: border-box;
+  min-height: 28px; 
+  font-size: 12px;
+}

@@ -1,0 +1,28 @@
+
+<!--index.wxml-->
+<view class="index">
+  <view class="index-bg" style="background-image:url(http://121.199.52.79/longphoto/index-bg.jpg)"></view>
+  <view class="index-content">
+    <div class="con-begin">从这里开始</div>
+    <view class="index-btn">
+      <view class="easy-btn" bindtap="tapEasy">
+        <i class="iconfont" style="background-image:url(http://121.199.52.79/longphoto/easy.jpg)"></i>
+      </view>
+      <view class="complex-btn" bindtap="tapComplex">
+        <i class="iconfont" style="background-image:url(http://121.199.52.79/longphoto/complex.jpg)"></i>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="easy" style="display:{{easy.status}}">
+  <view class="canvasEasy" wx:for="{{listAll}}">
+    <image wx:if="{{item.type == 'picture'}}" src="{{item.detail.url}}" style="width: 100%;height:{{item.detail.picHeight}}px"/>
+    <textarea wx:if="{{item.type == 'font'}}" class="easy-fontShow" placeholder="点击这里输入文字" style="height:{{item.detail.fontHeight}}px" value="{{item.detail.value}}"/>
+  </view>
+  <textarea class="easy-addFont" placeholder="点击这里输入文字" bindblur="chooseFont" value="{{easy.fontVal}}" bindlinechange="textAdjust" maxlength = "-1" auto-height/>
+  <view class="easy-addPic" bindtap="chooseImage">点击插入图片</view>
+  <div class="">
+  </div>
+</view>
+<view class="complex" style="display:{{complex.status}}">
+</view>
