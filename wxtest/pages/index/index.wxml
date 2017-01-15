@@ -1,28 +1,64 @@
 
 <!--index.wxml-->
-<view class="index">
+<view class="index" style="display:{{index.status}}">
   <view class="index-bg" style="background-image:url(http://121.199.52.79/longphoto/index-bg.jpg)"></view>
   <view class="index-content">
     <div class="con-begin">从这里开始</div>
     <view class="index-btn">
       <view class="easy-btn" bindtap="tapEasy">
-        <i class="iconfont" style="background-image:url(http://121.199.52.79/longphoto/easy.jpg)"></i>
+        <i class="begin-btn" style="background-image:url(http://121.199.52.79/longphoto/easy.jpg)"></i>
       </view>
       <view class="complex-btn" bindtap="tapComplex">
-        <i class="iconfont" style="background-image:url(http://121.199.52.79/longphoto/complex.jpg)"></i>
+        <i class="begin-btn" style="background-image:url(http://121.199.52.79/longphoto/complex.jpg)"></i>
       </view>
     </view>
   </view>
 </view>
 <view class="easy" style="display:{{easy.status}}">
   <view class="canvasEasy" wx:for="{{listAll}}">
-    <image wx:if="{{item.type == 'picture'}}" src="{{item.detail.url}}" style="width: 100%;height:{{item.detail.picHeight}}px"/>
-    <textarea wx:if="{{item.type == 'font'}}" class="easy-fontShow" placeholder="点击这里输入文字" style="height:{{item.detail.fontHeight}}px" value="{{item.detail.value}}"/>
+    <image wx:if="{{item.type == 'picture'}}" src="{{item.detail.url}}" style="width: 100%;height:{{item.detail.picHeight}}px" />
+    <textarea wx:if="{{item.type == 'font'}}" class="easy-fontShow" placeholder="点击这里输入文字" style="height:{{item.detail.fontHeight}}px" value="{{item.detail.value}}" />
   </view>
-  <textarea class="easy-addFont" placeholder="点击这里输入文字" bindblur="chooseFont" value="{{easy.fontVal}}" bindlinechange="textAdjust" maxlength = "-1" auto-height/>
+  <textarea class="easy-addFont" placeholder="点击这里输入文字" bindblur="chooseFont" value="{{easy.fontVal}}" bindlinechange="textAdjust" maxlength="-1" auto-height/>
   <view class="easy-addPic" bindtap="chooseImage">点击插入图片</view>
-  <div class="">
-  </div>
+  <view class="easy-function">
+    <view class="func-all">
+      <view class="iconfont icon-down" bindtap="">收起</view>
+      <view class="makePic" bindtap="makePic">预览</view>
+      <view class="iconfont icon-choosePic" bindtap="chooseImage">图片</view>
+      <view class="iconfont icon-chooseFont">字体</view>
+      <view class="iconfont icon-chooseInput">文字</view>
+    </view>
+    <view style="display:block">
+      <view class="func-font">
+        <view class="iconfont icon-big"></view>
+        <view class="fontSize">
+          <view class="fontSize-bg"></view>
+          <view class="fontSize-btn" style="left:{{easy.btnPos}}px;" bindtouchmove="fontMove" bindtouchstart="fontStart"></view>
+          <view class="fontSize-num">16</view>
+        </view>
+        <view class="iconfont icon-small"></view>
+      </view>
+      <view class="fontColor">
+        <view class="color-one"></view>
+        <view class="color-two"></view>
+        <view class="color-three"></view>
+        <view class="color-four"></view>
+        <view class="color-five"></view>
+        <view class="color-six"></view>
+      </view>
+      <view class="fontAlign">
+        <view class="iconfont icon-left">左</view>
+        <view class="iconfont icon-middle">中</view>
+        <view class="iconfont icon-right">右</view>
+        <view class="iconfont icon-bold">加粗</view>
+        <view class="iconfont icon-italtic">斜体</view>
+        <view class="iconfont icon-underline">下划</view>
+      </view>
+    </view>
+  </view>
 </view>
 <view class="complex" style="display:{{complex.status}}">
 </view>
+<canvas canvas-id="canva" style="display:{{canvas.status}}"></canvas>
+<image src="{{canvas.url}}" style="display:{{canvas.status}}" class="canvasImage"></image>

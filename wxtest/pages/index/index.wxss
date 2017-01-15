@@ -1,59 +1,200 @@
 /**index.wxss**/
-.index{
+
+.index {
   position: relative;
 }
-.index-bg{
+
+.index-bg {
   width: 100%;
   padding-top: 50%;
   background-size: cover;
 }
-.index-content{
+
+.index-content {
   padding-top: 30rpx;
 }
 
-.index-btn{
+.index-btn {
   display: flex;
   display: -webkit-flex;
   padding-top: 20%;
 }
-.index-btn .easy-btn,.index-btn .complex-btn{
+
+.index-btn .easy-btn, .index-btn .complex-btn {
   display: block;
   flex: 1;
-  -webkit-flex:1;
+  -webkit-flex: 1;
   text-align: center;
 }
-.iconfont{
+
+.begin-btn {
   display: inline-block;
   width: 140rpx;
   height: 150rpx;
   background-repeat: no-repeat;
 }
-.con-begin{
+
+.con-begin {
   color: #666;
   text-align: center;
   display: block;
   font-size: 14px;
 }
 
-.easy,.complex{
-  position:absolute;
+.easy, .complex {
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100%;
   background-color: #fff;
   z-index: 9;
 }
-.easy-addPic{
+
+.easy-addPic {
   width: 100%;
   height: 300rpx;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   color: #999;
   text-align: center;
   line-height: 300rpx;
   font-size: 12px;
-  }
-  .easy-fontShow{
-    padding: 14rpx;
-    box-sizing: border-box;
-  }
+}
+
+.easy-fontShow {
+  padding: 14rpx;
+  box-sizing: border-box;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+.canvasImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+.easy-function {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #f2f2f2;
+}
+
+.func-all {
+  display: flex;
+  display: -webkit-flex;
+  border-bottom: 1px solid #e4e4e4;
+  height: 64rpx;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+}
+
+.func-all view {
+  flex: 1;
+  -webkit-box-flex: 1;
+  color: #999;
+  font-size: 14px;
+}
+
+.makePic {
+  line-height: 64rpx;
+}
+
+.iconfont {
+}
+
+.fontColor,.fontAlign {
+  width: 100%;
+  padding: 0 20rpx;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.fontColor view {
+  display: inline-block;
+  border-radius: 50%;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.color-one {
+  background-color: #333;
+}
+
+.color-two {
+  background-color: #999;
+}
+
+.color-three {
+  background-color: #fe4365;
+}
+
+.color-four {
+  background-color: #fc9d9a;
+}
+
+.color-five {
+  background-color: #c8c8a9;
+}
+
+.color-six {
+  background-color: #83af98;
+}
+
+.func-font {
+  display: flex;
+  box-sizing: border-box;
+}
+
+.icon-big, .icon-small {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.fontSize{
+  flex: 1;
+  -webkit-flex: 1;
+  position: relative;
+  padding: 14rpx;
+  height: 28px;
+}
+
+.fontSize-bg {
+  width: 100%;
+  height: 3px;
+  background: #e4e4e4;
+  margin-top: 30rpx;
+}
+
+.fontSize-btn {
+  position: absolute;
+  top: 10rpx;
+  background: #e4e4e4;
+  margin-top: 15rpx;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.fontSize-num {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  margin-left: -6px;
+  font-size: 12px;
+}
+.fontAlign{
+  display: flex;
+  display: -webkit-flex;
+}
+.fontAlign view {
+  flex: 1;
+  -webkit-flex: 1;
+}

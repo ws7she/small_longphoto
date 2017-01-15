@@ -2,14 +2,30 @@
 //获取应用实例
 // var wxAuto = require('js/wxAutoImageCal.js')
 var app = getApp();
-var fontHeight;
+var fontHeight, startX, startY, endX, endY, moveX, moveY;
+var key = false;
+var ctx = wx.createCanvasContext('canva')
 Page({
   data: {
     motto: 'Hello World',
     userInfo: {},
+    imgStatus: "none",
+    index: {
+      status: "block"
+    },
+    canvas: {
+      status: "none",
+      url: ""
+    },
     easy: {
       status: "none",
-      fontVal: ''
+      fontVal: '',
+      fontColor: '#333',
+      fontStyle: 'static',
+      fontSize: '14px',
+      textAlign: 'left',
+      textUnderline: 'none',
+      btnPos:'125'
     },
     complex: {
       status: "none",
@@ -25,7 +41,6 @@ Page({
     })
   },
   onLoad: function () {
-    console.log('onLoad')
     var that = this
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo) {
@@ -33,16 +48,18 @@ Page({
       that.setData({
         userInfo: userInfo
       })
-    })
+    });
   },
   tapEasy: function () {
     this.setData({
-      easy: { status: "block" }
+      easy: { status: "block" },
+      index: { status: "none" }
     })
   },
   tapComplex: function () {
     this.setData({
-      complex: { status: "block" }
+      complex: { status: "block" },
+      index: { status: "none" }
     })
   },
   // 选择图片
@@ -66,6 +83,9 @@ Page({
             originalWidth = res.width;//图片原始宽  
             originalHeight = res.height;//图片原始高 
             picHeight = (windowWidth * originalHeight) / originalWidth;
+            ctx.save();
+            ctx.drawImage(picUrl, 0, 0, windowWidth, picHeight)
+            ctx.restore();
             _this.data.listAll.push({
               type: "picture",
               detail: {
@@ -96,12 +116,47 @@ Page({
         easy: { fontVal: '' }
       });
     }
-    console.log(this.data.listAll)
   },
   // textarea自适应
   textAdjust: function (e) {
     fontHeight = e.detail.height + 14;
-    console.log(fontHeight)
-  }
+  },
   // canvas生成
+  makePic: function () {
+    ctx.draw();
+    var _this = this;
+    var imgUrl;
+    this.setData({
+      canvas: { status: "block" },
+      easy: { status: "none" }
+    });
+    wx.canvasToTempFilePath({
+      canvasId: 'canva',
+      success(res) {
+        // imgUrl = res.tempFilePath;
+        console.log(res.tempFilePath);
+        // _this.setData({
+        //   canvas: { url: imgUrl }
+        // })
+      }
+    });
+  },
+  fontStart: function (e) {
+    var touch = e.touches[0];
+    startX = touch.clientX;
+    startY = touch.clientY;
+    key = true;
+  },
+  fontMove: function (e) {
+    if (key) {
+      var touch = e.touches[0];
+      endX = touch.clientX;
+      endY = touch.clientY;
+      var disX = endX - endY;
+      if( disX > 0 && disX < 30) {
+
+      }
+      key = false;
+    }
+  }
 })
