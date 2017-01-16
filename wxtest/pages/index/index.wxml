@@ -34,8 +34,8 @@
         <view class="iconfont icon-big"></view>
         <view class="fontSize">
           <view class="fontSize-bg"></view>
-          <view class="fontSize-btn" style="left:{{font.btnPos}}px;"  bindtouchstart="fontStart"></view>
-          <view class="fontSize-num"  style="left:{{font.numPos}}px;">16</view>
+          <view class="fontSize-btn" style="left:{{font.btnPos}}px;" bindtouchstart="fontStart"></view>
+          <view class="fontSize-num" style="left:{{font.numPos}}px;">16</view>
         </view>
         <view class="iconfont icon-small"></view>
       </view>
@@ -60,6 +60,13 @@
 </view>
 <view class="complex" style="display:{{complex.status}}">
 </view>
-<canvas canvas-id="haha"/>
-<view class="save" bindtap="save">保存</view>
-<image src="{{url}}" style="display:block" class="canvasImage"></image>
+<canvas canvas-id="haha" />
+<!--<view class="save" bindtap="save">保存</view>-->
+<!--触发action-sheet事件-->
+<button type="primary" bindtap="listenerButton">弹出ActionSheet</button>
+<!--默认action-sheet为隐藏，由button触发-->
+<action-sheet hidden="{{actionSheetHidden}}" bindchange="listenerActionSheet" >
+    <action-sheet-item bindtap="save">下载</action-sheet-item>
+    <!--自动隐藏action-sheet-->
+    <action-sheet-cancel>取消</action-sheet-cancel>
+</action-sheet>

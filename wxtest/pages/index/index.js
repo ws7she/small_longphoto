@@ -6,6 +6,7 @@ var fontHeight, startX, endX, moveX, pos;
 var key = false;
 Page({
   data: {
+    actionSheetHidden: true,
     motto: 'Hello World',
     userInfo: {},
     imgStatus: "none",
@@ -63,22 +64,31 @@ Page({
     wx.canvasToTempFilePath({
       canvasId: 'haha',
       success: function success(res) {
-        that.setData({
-          url: res.tempFilePath
-        })
-        wx.getSavedFileList({
+        var img = res.tempFilePath;
+        console.log(img)
+        wx.downloadFile({
+          url: img,
+          type: 'image',
           success: function (res) {
-            console.log(res.fileList)
+            wx.saveFile({
+              tempFilePath: res.tempFilePath,
+              success: function success(res) {
+                console.log(res)
+              },
+              fail: function fail(res) {
+                console.log(res)
+              }
+            });
+          },
+          fail: function fail(res) {
+            console.log(res)
           }
-        })
-      },
-      complete: function complete(res) {
-        console.log(res);
+        });
       },
       fail: function fail(res) {
-        console.log("error");
+        console.log(res)
       }
-    });
+    })
   },
   tapEasy: function () {
     this.setData({
@@ -192,5 +202,18 @@ Page({
   },
   fontEnd: function () {
     key = false;
+  },
+  listenerButton: function () {
+    this.setData({
+      //取反
+      actionSheetHidden: !this.data.actionSheetHidden
+    });
+  },
+
+  listenerActionSheet: function () {
+    this.setData({
+      actionSheetHidden: !this.data.actionSheetHidden
+    })
   }
 })
+
