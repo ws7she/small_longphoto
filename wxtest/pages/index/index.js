@@ -2,9 +2,8 @@
 //获取应用实例
 // var wxAuto = require('js/wxAutoImageCal.js')
 var app = getApp();
-var fontHeight, startX, startY, endX, endY, moveX, moveY;
+var fontHeight, startX, endX, moveX, pos;
 var key = false;
-var ctx = wx.createCanvasContext('canva')
 Page({
   data: {
     motto: 'Hello World',
@@ -13,22 +12,27 @@ Page({
     index: {
       status: "block"
     },
+    url: "",
     canvas: {
       status: "none",
       url: ""
     },
     easy: {
       status: "none",
-      fontVal: '',
-      fontColor: '#333',
-      fontStyle: 'static',
-      fontSize: '14px',
-      textAlign: 'left',
-      textUnderline: 'none',
-      btnPos:'125'
+      fontVal: "",
+      btnPos: "140",
+      fontColor: "#333",
+      fontStyle: "static",
+      fontSize: "14px",
+      textAlign: "left",
+      textUnderline: "none",
     },
     complex: {
       status: "none",
+    },
+    font: {
+      btnPos: "125",
+      numPos: "135",
     },
     piclist: [],
     fontlist: [],
@@ -48,6 +52,32 @@ Page({
       that.setData({
         userInfo: userInfo
       })
+    });
+    var ctx = wx.createCanvasContext('haha')
+    ctx.setFillStyle('red');
+    ctx.fillRect(10, 10, 150, 75);
+    ctx.draw();
+  },
+  save: function () {
+    var that = this;
+    wx.canvasToTempFilePath({
+      canvasId: 'haha',
+      success: function success(res) {
+        that.setData({
+          url: res.tempFilePath
+        })
+        wx.getSavedFileList({
+          success: function (res) {
+            console.log(res.fileList)
+          }
+        })
+      },
+      complete: function complete(res) {
+        console.log(res);
+      },
+      fail: function fail(res) {
+        console.log("error");
+      }
     });
   },
   tapEasy: function () {
@@ -127,36 +157,40 @@ Page({
     var _this = this;
     var imgUrl;
     this.setData({
-      canvas: { status: "block" },
       easy: { status: "none" }
     });
     wx.canvasToTempFilePath({
       canvasId: 'canva',
       success(res) {
-        // imgUrl = res.tempFilePath;
+        imgUrl = res.tempFilePath;
         console.log(res.tempFilePath);
-        // _this.setData({
-        //   canvas: { url: imgUrl }
-        // })
+        _this.setData({
+          'canvas.status': "block",
+          'canvas.url': imgUrl
+        })
       }
     });
   },
   fontStart: function (e) {
     var touch = e.touches[0];
     startX = touch.clientX;
-    startY = touch.clientY;
+    pos = parseInt(this.data.font.btnPos);
     key = true;
   },
   fontMove: function (e) {
     if (key) {
       var touch = e.touches[0];
-      endX = touch.clientX;
-      endY = touch.clientY;
-      var disX = endX - endY;
-      if( disX > 0 && disX < 30) {
-
+      endX = parseInt(touch.clientX);
+      var disX = parseInt(endX - startX) + pos;
+      if (disX > 0 && disX < 300) {
+        this.setData({
+          'font.btnPos': disX,
+          'font.numPos': disX + 10
+        })
       }
-      key = false;
     }
+  },
+  fontEnd: function () {
+    key = false;
   }
 })

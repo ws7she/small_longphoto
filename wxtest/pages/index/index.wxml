@@ -29,13 +29,13 @@
       <view class="iconfont icon-chooseFont">字体</view>
       <view class="iconfont icon-chooseInput">文字</view>
     </view>
-    <view style="display:block">
+    <view style="display:block" bindtouchmove="fontMove" bindtouchend="fontEnd">
       <view class="func-font">
         <view class="iconfont icon-big"></view>
         <view class="fontSize">
           <view class="fontSize-bg"></view>
-          <view class="fontSize-btn" style="left:{{easy.btnPos}}px;" bindtouchmove="fontMove" bindtouchstart="fontStart"></view>
-          <view class="fontSize-num">16</view>
+          <view class="fontSize-btn" style="left:{{font.btnPos}}px;"  bindtouchstart="fontStart"></view>
+          <view class="fontSize-num"  style="left:{{font.numPos}}px;">16</view>
         </view>
         <view class="iconfont icon-small"></view>
       </view>
@@ -60,5 +60,6 @@
 </view>
 <view class="complex" style="display:{{complex.status}}">
 </view>
-<canvas canvas-id="canva" style="display:{{canvas.status}}"></canvas>
-<image src="{{canvas.url}}" style="display:{{canvas.status}}" class="canvasImage"></image>
+<canvas canvas-id="haha"/>
+<view class="save" bindtap="save">保存</view>
+<image src="{{url}}" style="display:block" class="canvasImage"></image>
