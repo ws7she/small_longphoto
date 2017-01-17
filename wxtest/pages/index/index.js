@@ -1,6 +1,5 @@
 //index.js
 //获取应用实例
-// var wxAuto = require('js/wxAutoImageCal.js')
 var app = getApp();
 var fontHeight, startX, endX, moveX, pos;
 var key = false;

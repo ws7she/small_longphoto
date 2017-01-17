@@ -1,6 +1,6 @@
 
 <!--index.wxml-->
-<view class="index" style="display:{{index.status}}">
+<!--<view class="index" style="display:{{index.status}}">
   <view class="index-bg" style="background-image:url(http://121.199.52.79/longphoto/index-bg.jpg)"></view>
   <view class="index-content">
     <div class="con-begin">从这里开始</div>
@@ -61,5 +61,5 @@
 <view class="complex" style="display:{{complex.status}}">
 </view>
 <canvas canvas-id="haha"/>
-<view class="save" bindtap="save">保存</view>
-<image src="{{url}}" style="display:block" class="canvasImage"></image>
+<view class="save" bindtap="save">保存</view>-->
+<image src="http://121.199.52.79/longphoto/index-bg.jpg" ></image>
