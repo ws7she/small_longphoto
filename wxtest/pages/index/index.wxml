@@ -14,46 +14,6 @@
     </view>
   </view>
 </view>
-<view class="easy" style="display:{{easy.status}}">
-  <view class="canvasEasy" wx:for="{{listAll}}">
-    <image wx:if="{{item.type == 'picture'}}" src="{{item.detail.url}}" style="width: 100%;height:{{item.detail.picHeight}}px" />
-    <textarea wx:if="{{item.type == 'font'}}" class="easy-fontShow" style="height:{{item.detail.fontHeight}}px;color:{{item.detail.fontColor}}" value="{{item.detail.value}}" />
-  </view>
-  <textarea class="easy-addFont" placeholder="点击这里输入文字" bindblur="chooseFont" value="{{easy.fontVal}}" bindlinechange="textAdjust" maxlength="-1" />
-  <view class="easy-addPic" bindtap="chooseImage">点击插入图片</view>
-  <view class="easy-function">
-    <view class="func-all">
-      <view class="iconfont icon-down" bindtap="">收起</view>
-      <view class="makePic" bindtap="makePic">预览</view>
-      <view class="iconfont icon-choosePic" bindtap="chooseImage">图片</view>
-      <view class="iconfont icon-chooseFont">字体</view>
-      <view class="iconfont icon-chooseInput">文字</view>
-    </view>
-    <view style="display:block" bindtouchmove="fontMove" bindtouchend="fontEnd">
-      <view class="func-font">
-        <view class="iconfont icon-big"></view>
-        <view class="fontSize">
-          <view class="fontSize-bg"></view>
-          <view class="fontSize-btn" style="left:{{font.btnPos}}px;" bindtouchstart="fontStart"></view>
-          <view class="fontSize-num" style="left:{{font.numPos}}px;">16</view>
-        </view>
-        <view class="iconfont icon-small"></view>
-      </view>
-      <view class="fontColor">
-        <view wx:for="{{colorList}}" style="background-color:{{item}}" bindtap="chooseColor" data-color="{{item}}"></view>
-      </view>
-      <view class="fontAlign">
-        <view class="iconfont icon-left">左</view>
-        <view class="iconfont icon-middle">中</view>
-        <view class="iconfont icon-right">右</view>
-        <view class="iconfont icon-bold">加粗</view>
-        <view class="iconfont icon-italtic">斜体</view>
-        <view class="iconfont icon-underline">下划</view>
-      </view>
-    </view>
-  </view>
-</view>
-<view class="complex" style="display:{{complex.status}}">
-</view>
+
 
 

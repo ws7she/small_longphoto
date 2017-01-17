@@ -1,0 +1,3 @@
+<!--pages/complex/complex.wxml-->
+<view class="complex" style="display:{{complex.status}}">
+</view>

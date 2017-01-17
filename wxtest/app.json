@@ -1,6 +1,8 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/easy/easy",
+    "pages/complex/complex",
     "pages/canvas/canvas"
   ],
   "window":{
