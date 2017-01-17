@@ -1,4 +1,6 @@
 // pages/easy/easy.js
+var fontHeight, startX, endX, pos, fontSize, fontColor, textAlign, textUnder;
+var key = false;
 Page({
   data: {
     easy: {

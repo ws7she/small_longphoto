@@ -1,5 +1,5 @@
 /* pages/easy/easy.wxss */
-.easy, .complex {
+.easy{
   position: relative;
   top: 0;
   left: 0;
