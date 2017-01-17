@@ -1,0 +1,7 @@
+<canvas canvas-id="myCanvas"  bindlongtap="listenerButton" />
+
+<action-sheet hidden="{{actionSheetHidden}}" bindchange="listenerActionSheet" >
+    <action-sheet-item bindtap="save">下载</action-sheet-item>
+    <!--自动隐藏action-sheet-->
+    <action-sheet-cancel>取消</action-sheet-cancel>
+</action-sheet>

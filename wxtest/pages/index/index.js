@@ -1,14 +1,10 @@
 //index.js
 //获取应用实例
 var app = getApp();
-var ctx = wx.createCanvasContext('myCanvas');
 var fontHeight, startX, endX, pos, fontSize, fontColor, textAlign, textUnder;
 var key = false;
 Page({
   data: {
-    actionSheetHidden: true,
-    motto: 'Hello World',
-    userInfo: {},
     imgStatus: "none",
     index: {
       status: "block"
@@ -32,22 +28,6 @@ Page({
     },
     colorList:["#333333", "#999999", "#fe4365", "#fc9d9a", "#c8c8a9", "#83af98"],
     listAll: [],
-  },
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  onLoad: function () {
-    var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo
-      })
-    });
   },
   save: function () {
     var that = this;
@@ -116,14 +96,17 @@ Page({
             var left = e.currentTarget.offsetLeft;
             var top = e.currentTarget.offsetTop;
             console.log(e.currentTarget);
-            ctx.save();
-            ctx.drawImage(picUrl, left, top, windowWidth, picHeight)
-            ctx.restore();
+            // ctx.save();
+            // ctx.drawImage(picUrl, left, top, windowWidth, picHeight)
+            // ctx.restore();
             _this.data.listAll.push({
               type: "picture",
               detail: {
                 url: picUrl,
-                picHeight: picHeight
+                windowWidth:windowWidth,
+                picHeight: picHeight,
+                left:left,
+                top:top
               }
             })
             _this.setData({
@@ -137,7 +120,7 @@ Page({
   // 插入文字
   chooseFont: function (e) {
     if (e.detail.value.length != 0) {
-      var top = e.currentTarget.offsetTop;
+      var top = e.currentTarget.offsetTop + 15;
       var left = e.currentTarget.offsetLeft + 7;
       this.data.listAll.push({
         type: "font",
@@ -147,12 +130,14 @@ Page({
           fontColor:fontColor,
           fontSize:fontSize,
           textAlign:textAlign,
-          textUnder:textUnder
+          textUnder:textUnder,
+          left:left,
+          top:top
         }
       });
       console.log("font" + left, top);
-      ctx.setFillStyle(fontColor);
-      ctx.fillText(e.detail.value, left, top);
+      // ctx.setFillStyle(fontColor);
+      // ctx.fillText(e.detail.value, left, top);
       this.setData({
         listAll: this.data.listAll,
         easy: { fontVal: '' }
@@ -170,13 +155,7 @@ Page({
   },
   // canvas生成
   makePic: function () {
-    ctx.draw();
-    var _this = this;
-    var imgUrl;
-    this.setData({
-      'easy.status': 'none',
-      'canvas.status': "2",
-    });
+    wx.navigateTo({ url: '../canvas/canvas?list='+JSON.stringify(this.data.listAll) });
   },
   fontStart: function (e) {
     var touch = e.touches[0];
@@ -199,17 +178,6 @@ Page({
   },
   fontEnd: function () {
     key = false;
-  },
-  listenerButton: function () {
-    this.setData({
-      actionSheetHidden: !this.data.actionSheetHidden
-    });
-  },
-
-  listenerActionSheet: function () {
-    this.setData({
-      actionSheetHidden: !this.data.actionSheetHidden
-    })
   }
 })
 

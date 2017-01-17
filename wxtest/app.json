@@ -1,12 +1,13 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/canvas/canvas"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#373737",
-    "navigationBarTitleText": "长图文",
+    "navigationBarTitleText": "长图文编辑器",
+    "windowBackground": "#1c1c1c",
     "navigationBarTextStyle":"#fff"
   }
 }
