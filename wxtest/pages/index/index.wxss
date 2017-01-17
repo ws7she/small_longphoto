@@ -69,8 +69,8 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
-  /*width: 100%;
-  min-height: 100%;*/
+  width: 100%;
+  min-height: 100%;
 }
 
 .canvasImage {
@@ -126,30 +126,6 @@ canvas {
   height: 60rpx;
 }
 
-.color-one {
-  background-color: #333;
-}
-
-.color-two {
-  background-color: #999;
-}
-
-.color-three {
-  background-color: #fe4365;
-}
-
-.color-four {
-  background-color: #fc9d9a;
-}
-
-.color-five {
-  background-color: #c8c8a9;
-}
-
-.color-six {
-  background-color: #83af98;
-}
-
 .func-font {
   display: flex;
   box-sizing: border-box;
@@ -198,12 +174,4 @@ canvas {
 .fontAlign view {
   flex: 1;
   -webkit-flex: 1;
-}
-.save{
-  position: fixed;
-  top: 150px;
-  right: 5px;
-  width: 30px;
-  height: 30px;
-  background-color: red;
 }

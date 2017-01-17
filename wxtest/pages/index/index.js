@@ -1,10 +1,12 @@
 //index.js
 //获取应用实例
 var app = getApp();
-var fontHeight, startX, endX, moveX, pos;
+var ctx = wx.createCanvasContext('myCanvas');
+var fontHeight, startX, endX, pos, fontSize, fontColor, textAlign, textUnder;
 var key = false;
 Page({
   data: {
+    actionSheetHidden: true,
     motto: 'Hello World',
     userInfo: {},
     imgStatus: "none",
@@ -13,18 +15,13 @@ Page({
     },
     url: "",
     canvas: {
-      status: "none",
+      status: "-1",
       url: ""
     },
     easy: {
       status: "none",
       fontVal: "",
-      btnPos: "140",
-      fontColor: "#333",
-      fontStyle: "static",
-      fontSize: "14px",
-      textAlign: "left",
-      textUnderline: "none",
+      btnPos: "140"
     },
     complex: {
       status: "none",
@@ -33,8 +30,7 @@ Page({
       btnPos: "125",
       numPos: "135",
     },
-    piclist: [],
-    fontlist: [],
+    colorList:["#333333", "#999999", "#fe4365", "#fc9d9a", "#c8c8a9", "#83af98"],
     listAll: [],
   },
   //事件处理函数
@@ -52,32 +48,37 @@ Page({
         userInfo: userInfo
       })
     });
-    var ctx = wx.createCanvasContext('haha')
-    ctx.setFillStyle('red');
-    ctx.fillRect(10, 10, 150, 75);
-    ctx.draw();
   },
   save: function () {
     var that = this;
     wx.canvasToTempFilePath({
-      canvasId: 'haha',
+      canvasId: 'myCanvas',
       success: function success(res) {
-        that.setData({
-          url: res.tempFilePath
-        })
-        wx.getSavedFileList({
+        var img = res.tempFilePath;
+        console.log(img)
+        wx.downloadFile({
+          url: img,
+          type: 'image',
           success: function (res) {
-            console.log(res.fileList)
+            wx.saveFile({
+              tempFilePath: res.tempFilePath,
+              success: function success(res) {
+                console.log(res)
+              },
+              fail: function fail(res) {
+                console.log(res)
+              }
+            });
+          },
+          fail: function fail(res) {
+            console.log(res)
           }
-        })
-      },
-      complete: function complete(res) {
-        console.log(res);
+        });
       },
       fail: function fail(res) {
-        console.log("error");
+        console.log(res)
       }
-    });
+    })
   },
   tapEasy: function () {
     this.setData({
@@ -92,7 +93,7 @@ Page({
     })
   },
   // 选择图片
-  chooseImage: function () {
+  chooseImage: function (e) {
     var _this = this;
     var picHeight, windowWidth, originalHeight, originalWidth, picUrl;
     wx.chooseImage({
@@ -112,8 +113,11 @@ Page({
             originalWidth = res.width;//图片原始宽  
             originalHeight = res.height;//图片原始高 
             picHeight = (windowWidth * originalHeight) / originalWidth;
+            var left = e.currentTarget.offsetLeft;
+            var top = e.currentTarget.offsetTop;
+            console.log(e.currentTarget);
             ctx.save();
-            ctx.drawImage(picUrl, 0, 0, windowWidth, picHeight)
+            ctx.drawImage(picUrl, left, top, windowWidth, picHeight)
             ctx.restore();
             _this.data.listAll.push({
               type: "picture",
@@ -133,13 +137,22 @@ Page({
   // 插入文字
   chooseFont: function (e) {
     if (e.detail.value.length != 0) {
+      var top = e.currentTarget.offsetTop;
+      var left = e.currentTarget.offsetLeft + 7;
       this.data.listAll.push({
         type: "font",
         detail: {
           value: e.detail.value,
-          fontHeight: fontHeight
+          fontHeight: fontHeight,
+          fontColor:fontColor,
+          fontSize:fontSize,
+          textAlign:textAlign,
+          textUnder:textUnder
         }
       });
+      console.log("font" + left, top);
+      ctx.setFillStyle(fontColor);
+      ctx.fillText(e.detail.value, left, top);
       this.setData({
         listAll: this.data.listAll,
         easy: { fontVal: '' }
@@ -150,24 +163,19 @@ Page({
   textAdjust: function (e) {
     fontHeight = e.detail.height + 14;
   },
+  // 选择颜色
+  chooseColor:function(e) {
+    fontColor = e.currentTarget.dataset.color
+    console.log(fontColor)
+  },
   // canvas生成
   makePic: function () {
     ctx.draw();
     var _this = this;
     var imgUrl;
     this.setData({
-      easy: { status: "none" }
-    });
-    wx.canvasToTempFilePath({
-      canvasId: 'canva',
-      success(res) {
-        imgUrl = res.tempFilePath;
-        console.log(res.tempFilePath);
-        _this.setData({
-          'canvas.status': "block",
-          'canvas.url': imgUrl
-        })
-      }
+      'easy.status': 'none',
+      'canvas.status': "2",
     });
   },
   fontStart: function (e) {
@@ -191,5 +199,17 @@ Page({
   },
   fontEnd: function () {
     key = false;
+  },
+  listenerButton: function () {
+    this.setData({
+      actionSheetHidden: !this.data.actionSheetHidden
+    });
+  },
+
+  listenerActionSheet: function () {
+    this.setData({
+      actionSheetHidden: !this.data.actionSheetHidden
+    })
   }
 })
+
