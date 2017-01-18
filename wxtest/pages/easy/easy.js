@@ -1,16 +1,16 @@
 // pages/easy/easy.js
-var fontHeight, startX, endX, pos, fontSize, fontColor, textAlign, textUnder;
-var key = false;
+var fontHeight, startX, endX, pos;
+var fontSize = 16, fontColor = "#333333", textAlign = "left", fontUnder = "normal", fontBold = "normal", fontItalic = "normal", key = false;
 Page({
   data: {
     easy: {
-      
       fontVal: "",
       btnPos: "140"
     },
     font: {
       btnPos: "125",
       numPos: "135",
+      fontSize: "16"
     },
     colorList: ["#333333", "#999999", "#fe4365", "#fc9d9a", "#c8c8a9", "#83af98"],
     listAll: [],
@@ -112,11 +112,13 @@ Page({
         type: "font",
         detail: {
           value: e.detail.value,
-          fontHeight: fontHeight,
+          // fontHeight: fontHeight,
           fontColor: fontColor,
           fontSize: fontSize,
           textAlign: textAlign,
-          textUnder: textUnder,
+          fontUnder: fontUnder,
+          fontItalic: fontItalic,
+          fontBold: fontBold,
           left: left,
           top: top
         }
@@ -156,10 +158,70 @@ Page({
           'font.btnPos': disX,
           'font.numPos': disX + 10
         })
+        if (disX < 25) {
+          fontSize = 10;
+          this.setData({
+            'font.fontSize': fontSize,
+          })
+        } else if (disX >= 25 && disX < 75) {
+          fontSize = 12;
+          this.setData({
+            'font.fontSize': fontSize,
+          })
+        } else if (disX >= 75 && disX < 125) {
+          fontSize = 14;
+          this.setData({
+            'font.fontSize': fontSize,
+          })
+        } else if (disX >= 125 && disX < 175) {
+          fontSize = 16;
+          this.setData({
+            'font.fontSize': fontSize,
+          })
+        } else if (disX >= 175 && disX < 225) {
+          fontSize = 18;
+          this.setData({
+            'font.fontSize': fontSize,
+          })
+        } else if (disX >= 225 && disX < 275) {
+          fontSize = 20;
+          this.setData({
+            'font.fontSize': fontSize,
+          })
+        } else if (disX >= 275 && disX <= 300) {
+          fontSize = 22;
+          this.setData({
+            'font.fontSize': fontSize,
+          })
+        }
       }
     }
   },
   fontEnd: function () {
     key = false;
+  },
+  // 段落左对齐
+  alignLeft: function () {
+    textAlign = "left";
+  },
+  // 段落居中对齐
+  alignMiddle: function () {
+    textAlign = "center";
+  },
+  // 段落右对齐
+  alignRight: function () {
+    textAlign = "right";
+  },
+  // 文字加粗
+  textBold: function () {
+    fontBold = "bold"
+  },
+  // 文字倾斜
+  textItalic: function () {
+    fontItalic = "italic"
+  },
+  // 文字下划线
+  textUnder: function () {
+    fontUnder = "underline"
   }
 })

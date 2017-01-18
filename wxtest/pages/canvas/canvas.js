@@ -20,6 +20,7 @@ Page({
         ctx.restore();
       } else if(listAll[i].type == "font") {
         ctx.setFillStyle(listAll[i].detail.fontColor);
+        ctx.textAlign = listAll[i].detail.textAlign;
         ctx.fillText(listAll[i].detail.value, listAll[i].detail.left, listAll[i].detail.top);
       }
     }

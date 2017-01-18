@@ -36,6 +36,7 @@ canvas {
   bottom: 0;
   width: 100%;
   background: #f2f2f2;
+  z-index: 10;
 }
 
 .func-all {
