@@ -1,45 +1,20 @@
 
 <!--pages/easy/easy.wxml-->
-<view class="easy">
-  <view id="canvasMain">
+<view class="easy" bindtap="easyFocus">
+  <view class="canvasMain">
     <block wx:for="{{listAll}}">
       <image wx:if="{{item.type == 'picture'}}" src="{{item.detail.url}}" style="width: 100%;height:{{item.detail.picHeight}}px" />
       <view wx:if="{{item.type == 'font'}}" class="easy-fontShow" style="color:{{item.detail.fontColor}};font-size:{{item.detail.fontSize}}px;font-style:{{item.detail.fontItalic}};text-decoration:{{item.detail.fontUnder}};text-align:{{item.detail.textAlign}};font-weight:{{item.detail.fontBold}}"
       value="{{item.detail.value}}">{{item.detail.value}}</view>
     </block>
   </view>
-  <textarea class="easy-addFont" placeholder="点击这里输入文字" bindblur="chooseFont" value="{{easy.fontVal}}" bindlinechange="textAdjust" maxlength="-1" />
-  <view class="easy-addPic" bindtap="chooseImage">点击插入图片</view>
-  <view style="height:260rpx;"></view>
+  <textarea class="easy-addFont" bindblur="chooseFont" value="{{easy.fontVal}}" bindlinechange="textAdjust" maxlength="-1" style="height:{{fontHeight}}px" focus="{{focus}}"/>
   <view class="easy-function">
     <view class="func-all">
       <view class="iconfont icon-down" bindtap="">收起</view>
       <view class="makePic" bindtap="makePic">预览</view>
       <view class="iconfont icon-choosePic" bindtap="chooseImage">图片</view>
-      <view class="iconfont icon-chooseFont">字体</view>
       <view class="iconfont icon-chooseInput">文字</view>
-    </view>
-    <view style="display:block" bindtouchmove="fontMove" bindtouchend="fontEnd">
-      <view class="func-font">
-        <view class="iconfont icon-big"></view>
-        <view class="fontSize">
-          <view class="fontSize-bg"></view>
-          <view class="fontSize-btn" style="left:{{font.btnPos}}px;" bindtouchstart="fontStart"></view>
-          <view class="fontSize-num" style="left:{{font.numPos}}px;">{{font.fontSize}}</view>
-        </view>
-        <view class="iconfont icon-small"></view>
-      </view>
-      <view class="fontColor">
-        <view wx:for="{{colorList}}" style="background-color:{{item}}" bindtap="chooseColor" data-color="{{item}}"></view>
-      </view>
-      <view class="fontAlign">
-        <view class="iconfont icon-left" bindtap="alignLeft">左</view>
-        <view class="iconfont icon-middle" bindtap="alignMiddle">中</view>
-        <view class="iconfont icon-right" bindtap="alignRight">右</view>
-        <view class="iconfont icon-bold" bindtap="textBold">加粗</view>
-        <view class="iconfont icon-italtic" bindtap="textItalic">斜体</view>
-        <view class="iconfont icon-underline" bindtap="textUnder">下划</view>
-      </view>
     </view>
   </view>
 </view>
