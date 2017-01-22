@@ -7,10 +7,10 @@ Page({
       fontVal: "",
     },
     listAll: [],
-    fontHeight : '16',
-    focus:false
+    fontHeight: '16',
+    focus: false
   },
-  easyFocus:function() {
+  easyFocus: function () {
     this.setData({
       focus: true
     })
@@ -21,7 +21,6 @@ Page({
       canvasId: 'myCanvas',
       success: function success(res) {
         var img = res.tempFilePath;
-        console.log(img)
         wx.downloadFile({
           url: img,
           type: 'image',
@@ -67,18 +66,12 @@ Page({
             originalWidth = res.width;//图片原始宽  
             originalHeight = res.height;//图片原始高 
             picHeight = (windowWidth * originalHeight) / originalWidth;
-            var left = e.currentTarget.offsetLeft;
-            var top = e.currentTarget.offsetTop;
-            console.log(e.currentTarget);
             _this.data.listAll.push({
               type: "picture",
-              detail: {
-                url: picUrl,
-                windowWidth: windowWidth,
-                picHeight: picHeight,
-                left: left,
-                top: top
-              }
+              url: picUrl,
+              windowWidth: windowWidth,
+              picHeight: picHeight,
+              left: 0,
             })
             _this.setData({
               listAll: _this.data.listAll
@@ -91,14 +84,13 @@ Page({
   // 插入文字
   chooseFont: function (e) {
     if (e.detail.value.length != 0) {
-      var top = e.currentTarget.offsetTop + 15;
-      var left = e.currentTarget.offsetLeft + 7;
-      this.data.listAll.push({
-        type: "font",
-        detail: {
-          value: e.detail.value,
-        }
-      });
+      var obj = e.detail;
+      obj.type = "font";
+      obj.value = e.detail.value;
+      obj.height = fontHeight;
+      obj.top = e.currentTarget.offsetTop + 15;
+      obj.left = e.currentTarget.offsetLeft + 7;
+      this.data.listAll.push(obj);
       this.setData({
         listAll: this.data.listAll,
         easy: { fontVal: '' }
@@ -107,9 +99,42 @@ Page({
   },
   // textarea自适应
   textAdjust: function (e) {
+    fontHeight = e.detail.height + 10;
     this.setData({
-      fontHeight :　e.detail.height + 16
+      fontHeight: e.detail.height + 10
     })
+  },
+  textAdjustTop: function (e) {
+    var arr = this.data.listAll;
+    var index = e.currentTarget.dataset.index;
+    if (arr[index].value != e.detail.value) {
+      arr[index].height = e.detail.height + 10;
+      console.log(arr[index].height)
+      this.setData({
+        listAll: arr
+      })
+    }
+  },
+  editFont: function (e) {
+    var arr = this.data.listAll;
+    var index = e.currentTarget.dataset.index;
+    if (arr[index].value != e.detail.value) {
+      arr[index].value = e.detail.value;
+      this.setData({
+        listAll: arr
+      })
+    }
+  },
+  // 图片位置
+  main: function (e) {
+    var arr = this.data.listAll;
+    var index = e.currentTarget.dataset.index;
+    var picTop = e.currentTarget.offsetTop;
+    arr[index].top = picTop;
+    this.setData({
+      listAll: arr
+    });
+    console.log(this.data.listAll)
   },
   // canvas生成
   makePic: function () {

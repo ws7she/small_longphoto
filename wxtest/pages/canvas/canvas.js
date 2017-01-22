@@ -1,5 +1,6 @@
 // pages/canvas/canvas.js
 var ctx = wx.createCanvasContext('myCanvas');
+var windowWidth;
 Page({
   data: {
     actionSheetHidden: true,
@@ -7,21 +8,25 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    console.log(JSON.parse(options.list))
+    wx.getSystemInfo({
+      success: function (res) {
+        windowWidth = res.windowWidth;
+      }
+    });
     this.setData({
       list: JSON.parse(options.list)
     })
     var listAll = this.data.list
-    console.log(this.data.list)
     for (var i in listAll) {
       if (listAll[i].type == "picture") {
         ctx.save();
-        ctx.drawImage(listAll[i].detail.url, listAll[i].detail.left, listAll[i].detail.top, listAll[i].detail.windowWidth, listAll[i].detail.picHeight)
+        ctx.drawImage(listAll[i].url, listAll[i].left, listAll[i].top, listAll[i].windowWidth, listAll[i].picHeight)
         ctx.restore();
-      } else if(listAll[i].type == "font") {
-        ctx.setFillStyle(listAll[i].detail.fontColor);
-        ctx.textAlign = listAll[i].detail.textAlign;
-        ctx.fillText(listAll[i].detail.value, listAll[i].detail.left, listAll[i].detail.top);
+      } else if (listAll[i].type == "font") {
+
+        ctx.setFontSize(16);
+        // ctx.fillText(listAll[i].value, listAll[i].left, listAll[i].top);
+        this.canvasTextAutoLine(listAll[i].value, listAll[i].top, 26, 20, 7)
       }
     }
     ctx.draw();
@@ -43,10 +48,26 @@ Page({
       actionSheetHidden: !this.data.actionSheetHidden
     });
   },
-
   listenerActionSheet: function () {
     this.setData({
       actionSheetHidden: !this.data.actionSheetHidden
     })
+  },
+  canvasTextAutoLine: function (str, lineHeight, width, height, align) {
+    var lineWidth = 0;
+    var canvasWidth = windowWidth;
+    var lastSubStrIndex = 0;
+    for (var i = 0; i < str.length; i++) {
+      lineWidth += 16;
+      if (lineWidth > canvasWidth) {//减去initX,防止边界出现的问题
+        ctx.fillText(str.substring(lastSubStrIndex, i), align, lineHeight);
+        lineHeight += height;
+        lineWidth = width;
+        lastSubStrIndex = i;
+      }
+      if (i == str.length - 1) {
+        ctx.fillText(str.substring(lastSubStrIndex, i + 1), align, lineHeight);
+      }
+    }
   }
 })

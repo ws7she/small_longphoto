@@ -8,5 +8,5 @@ textarea{
   padding: 7px;
   box-sizing: border-box;
   min-height: 28px; 
-  font-size: 12px;
+  font-size: 16px;
 }

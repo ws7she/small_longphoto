@@ -60,9 +60,12 @@ canvas {
 
 .makePic {
   line-height: 64rpx;
+  text-align: center;
 }
 
 .iconfont {
+  line-height: 64rpx;
+  text-align: center;
 }
 
 .fontColor,.fontAlign {

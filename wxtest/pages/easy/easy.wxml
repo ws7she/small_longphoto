@@ -1,14 +1,15 @@
 
 <!--pages/easy/easy.wxml-->
-<view class="easy" bindtap="easyFocus">
+<view class="easy" >
   <view class="canvasMain">
     <block wx:for="{{listAll}}">
-      <image wx:if="{{item.type == 'picture'}}" src="{{item.detail.url}}" style="width: 100%;height:{{item.detail.picHeight}}px" />
-      <view wx:if="{{item.type == 'font'}}" class="easy-fontShow" style="color:{{item.detail.fontColor}};font-size:{{item.detail.fontSize}}px;font-style:{{item.detail.fontItalic}};text-decoration:{{item.detail.fontUnder}};text-align:{{item.detail.textAlign}};font-weight:{{item.detail.fontBold}}"
-      value="{{item.detail.value}}">{{item.detail.value}}</view>
+      <image wx:if="{{item.type == 'picture'}}" src="{{item.url}}" style="width: 100%;height:{{item.picHeight}}px" data-index="{{index}}" bindload="main"/>
+      <textarea wx:if="{{item.type == 'font'}}" class="easy-fontShow" maxlength="-1" style="height:{{item.height}}px" value="{{item.value}}" bindblur="editFont" data-index="{{index}}" />
     </block>
   </view>
+  <view bindtap="easyFocus" style="height:100%">
   <textarea class="easy-addFont" bindblur="chooseFont" value="{{easy.fontVal}}" bindlinechange="textAdjust" maxlength="-1" style="height:{{fontHeight}}px" focus="{{focus}}"/>
+  </view>
   <view class="easy-function">
     <view class="func-all">
       <view class="iconfont icon-down" bindtap="">收起</view>
