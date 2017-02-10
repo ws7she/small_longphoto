@@ -4,7 +4,7 @@
   <view class="canvasMain">
     <block wx:for="{{listAll}}">
       <image wx:if="{{item.type == 'picture'}}" src="{{item.url}}" style="width: 100%;height:{{item.picHeight}}px" data-index="{{index}}" bindload="main"/>
-      <textarea wx:if="{{item.type == 'font'}}" class="easy-fontShow" maxlength="-1" style="height:{{item.height}}px" value="{{item.value}}" bindblur="editFont" data-index="{{index}}" />
+      <textarea wx:if="{{item.type == 'font'}}" class="easy-fontShow" maxlength="-1" style="height:{{item.height}}px" value="{{item.value}}" bindblur="editFont" data-index="{{index}}" bindlinechange="textAdjustTop"/>
     </block>
   </view>
   <view bindtap="easyFocus" style="height:100%">
