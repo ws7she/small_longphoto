@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/easy/easy",
     "pages/complex/complex",
-    "pages/canvas/canvas"
+    "pages/canvas/canvas",
+    "pages/canvas/comCanvas"
   ],
   "window":{
     "backgroundTextStyle":"light",

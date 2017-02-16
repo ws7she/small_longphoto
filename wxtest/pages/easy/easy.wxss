@@ -46,7 +46,7 @@ canvas {
   display: flex;
   display: -webkit-flex;
   border-bottom: 1px solid #e4e4e4;
-  height: 64rpx;
+  height: 120rpx;
   box-sizing: border-box;
   padding: 0 20rpx;
 }
@@ -59,12 +59,12 @@ canvas {
 }
 
 .makePic {
-  line-height: 64rpx;
+  line-height: 120rpx;
   text-align: center;
 }
 
 .iconfont {
-  line-height: 64rpx;
+  line-height: 120rpx;
   text-align: center;
 }
 

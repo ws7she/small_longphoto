@@ -4,7 +4,8 @@ var windowWidth;
 Page({
   data: {
     actionSheetHidden: true,
-    list: []
+    list: [],
+    canvasHei: 0
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
@@ -16,11 +17,14 @@ Page({
     this.setData({
       list: JSON.parse(options.list)
     })
+    
     var listAll = this.data.list
+    var canvasHei = 0;
     for (var i in listAll) {
+      canvasHei = listAll[i].height + canvasHei;
       if (listAll[i].type == "picture") {
         ctx.save();
-        ctx.drawImage(listAll[i].url, listAll[i].left, listAll[i].top, listAll[i].windowWidth, listAll[i].picHeight)
+        ctx.drawImage(listAll[i].url, listAll[i].left, listAll[i].top, listAll[i].windowWidth, listAll[i].height)
         ctx.restore();
       } else if (listAll[i].type == "font") {
 
@@ -29,6 +33,9 @@ Page({
         this.canvasTextAutoLine(listAll[i].value, listAll[i].top, 26, 20, 7)
       }
     }
+    this.setData({
+       canvasHei: canvasHei
+    })
     ctx.draw();
   },
   onReady: function () {

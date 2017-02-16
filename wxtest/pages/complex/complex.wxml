@@ -1,45 +1,38 @@
 
-<!--pages/easy/easy.wxml-->
-<view class="easy">
-  <view id="canvasMain">
+<!--pages/complex/complex.wxml-->
+<view class="complex" bindtouchmove = "moveMove" bindtouchend="moveEnd">
+  <view class="canvasMain">
     <block wx:for="{{listAll}}">
-      <image wx:if="{{item.type == 'picture'}}" src="{{item.detail.url}}" style="width: 100%;height:{{item.detail.picHeight}}px" />
-      <view wx:if="{{item.type == 'font'}}" class="easy-fontShow" style="color:{{item.detail.fontColor}};font-size:{{item.detail.fontSize}}px;font-style:{{item.detail.fontItalic}};text-decoration:{{item.detail.fontUnder}};text-align:{{item.detail.textAlign}};font-weight:{{item.detail.fontBold}}"
-      value="{{item.detail.value}}">{{item.detail.value}}</view>
+      <view class="edit-border" wx:if="{{item.type == 'picture'}}" style="top:{{(index+1)*10 + item.top}}px;left:{{(index+1)*10 + item.left}}px;transform:rotate({{item.skew}}deg) scale({{item.scaleX}},{{item.scaleY}})"  data-index="{{index}}">
+        <image src="{{item.url}}" style="width:200px;height:{{item.height}}px;" data-index="{{index}}" bindtap="changePic" bindtouchstart="moveStart"/>
+        <view class="iconfont delete" bindtap="deleteThis" data-index="{{index}}">删除</view>
+        <view class="iconfont scale" bindtouchstart="scaleThis" bindtouchend="scaleStop" data-index="{{index}}">放大</view>
+        <view class="iconfont translate" bindtouchstart="skewThis" bindtouchend="skewStop" data-index="{{index}}">旋转</view>
+      </view>
+      <view class="edit-border" wx:if="{{item.type == 'font'}}" style="top:{{(index+1)*10 + item.top}}px;left:{{(index+1)*10 + item.left}}px;width:200px;"  data-index="{{index}}">
+        <view wx:if="{{item.type == 'font'}}" style="width:200px;color:{{item.color}};  word-break: break-all;" bindtap="changeFont" data-index="{{index}}" bindtouchstart="moveStart">{{item.value}}</view>
+        <view class="iconfont delete" bindtap="deleteThis" data-index="{{index}}">删除</view>
+        <view class="iconfont scale" bindtouchstart="scaleThis" bindtouchend="scaleStop" data-index="{{index}}">放大</view>
+        <view class="iconfont translate" bindtouchstart="skewThis" bindtouchend="skewStop" data-index="{{index}}">旋转</view>
+      </view>
     </block>
   </view>
-  <textarea class="easy-addFont" placeholder="点击这里输入文字" bindblur="chooseFont" value="{{easy.fontVal}}" bindlinechange="textAdjust" maxlength="-1" />
-  <view class="easy-addPic" bindtap="chooseImage">点击插入图片</view>
-  <view style="height:260rpx;"></view>
-  <view class="easy-function">
-    <view class="func-all">
-      <view class="iconfont icon-down" bindtap="">收起</view>
-      <view class="makePic" bindtap="makePic">预览</view>
-      <view class="iconfont icon-choosePic" bindtap="chooseImage">图片</view>
-      <view class="iconfont icon-chooseFont">字体</view>
-      <view class="iconfont icon-chooseInput">文字</view>
-    </view>
-    <view style="display:block" bindtouchmove="fontMove" bindtouchend="fontEnd">
-      <view class="func-font">
-        <view class="iconfont icon-big"></view>
-        <view class="fontSize">
-          <view class="fontSize-bg"></view>
-          <view class="fontSize-btn" style="left:{{font.btnPos}}px;" bindtouchstart="fontStart"></view>
-          <view class="fontSize-num" style="left:{{font.numPos}}px;">{{font.fontSize}}</view>
-        </view>
-        <view class="iconfont icon-small"></view>
+  <view class="complex-func">
+    <view class="addPic" bindtap="chooseImage">图片</view>
+    <view class="addFont" bindtap="showFont">文字</view>
+    <view class="addPoocg" bindtap="showFont">涂鸦</view>
+  </view>
+  <view class="cover" style="display:{{coverStatus}}">
+    <view class="edit-all">
+      <textarea class="edit-main" value="{{complex.fontVal}}" maxlength="-1" style="height:{{fontHeight}}px" bindblur="fontBlur"/>
+      <view class="color-main">
+        <view wx:for="{{colorList}}" style="background-color:{{item}}" bindtap="chooseColor" data-color="{{item}}" class="colorChoose"></view>
       </view>
-      <view class="fontColor">
-        <view wx:for="{{colorList}}" style="background-color:{{item}}" bindtap="chooseColor" data-color="{{item}}"></view>
-      </view>
-      <view class="fontAlign">
-        <view class="iconfont icon-left" bindtap="alignLeft">左</view>
-        <view class="iconfont icon-middle" bindtap="alignMiddle">中</view>
-        <view class="iconfont icon-right" bindtap="alignRight">右</view>
-        <view class="iconfont icon-bold" bindtap="textBold">加粗</view>
-        <view class="iconfont icon-italtic" bindtap="textItalic">斜体</view>
-        <view class="iconfont icon-underline" bindtap="textUnder">下划</view>
+      <view class="addIn">
+        <view class="cancel" bindtap="chooseCancel">取消</view>
+        <view class="sure" bindtap="chooseFont">确定</view>
       </view>
     </view>
   </view>
+  <view class="makePic" bindtap="makePic">预览</view>
 </view>

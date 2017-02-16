@@ -48,7 +48,7 @@ Page({
   // 选择图片
   chooseImage: function (e) {
     var _this = this;
-    var picHeight, windowWidth, originalHeight, originalWidth, picUrl;
+    var height, windowWidth, originalHeight, originalWidth, picUrl;
     wx.chooseImage({
       count: 1, // 默认9  
       sizeType: ['compressed'],
@@ -65,12 +65,12 @@ Page({
           success: function (res) {
             originalWidth = res.width;//图片原始宽  
             originalHeight = res.height;//图片原始高 
-            picHeight = (windowWidth * originalHeight) / originalWidth;
+            height = (windowWidth * originalHeight) / originalWidth;
             _this.data.listAll.push({
               type: "picture",
               url: picUrl,
               windowWidth: windowWidth,
-              picHeight: picHeight,
+              height: height,
               left: 0,
             })
             _this.setData({
@@ -100,6 +100,7 @@ Page({
   // textarea自适应
   textAdjust: function (e) {
     fontHeight = e.detail.height + 13;
+    console.log(fontHeight)
     this.setData({
       fontHeight: e.detail.height + 13
     })
@@ -109,7 +110,6 @@ Page({
     var index = e.currentTarget.dataset.index;
     if (arr[index].value != e.detail.value) {
       arr[index].height = e.detail.lineHeight * e.detail.lineCount + 13;
-      console.log(arr[index].height)
       this.setData({
         listAll: arr
       })
@@ -126,16 +126,15 @@ Page({
     }
   },
   // 图片位置
-  main: function (e) {
-    // var arr = this.data.listAll;
-    // var index = e.currentTarget.dataset.index;
-    // var picTop = e.currentTarget.offsetTop;
-    // arr[index].top = picTop;
-    // this.setData({
-    //   listAll: arr
-    // });
-    // console.log(this.data.listAll)
-    console.log(e)
+  picPos: function (e) {
+    var arr = this.data.listAll;
+    var index = e.currentTarget.dataset.index;
+    var picTop = e.currentTarget.offsetTop;
+    arr[index].top = picTop;
+    console.log(picTop)
+    this.setData({
+      listAll: arr
+    });
   },
   // canvas生成
   makePic: function () {

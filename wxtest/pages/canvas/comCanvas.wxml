@@ -1,4 +1,4 @@
-<canvas canvas-id="myCanvas"  bindlongtap="listenerButton" style="height:{{canvasHei}}px" height="auto"/>
+<canvas canvas-id="comCanvas"  bindlongtap="listenerButton" style="height:100%" height="auto"/>
 
 <action-sheet hidden="{{actionSheetHidden}}" bindchange="listenerActionSheet" >
     <action-sheet-item bindtap="save">下载</action-sheet-item>
